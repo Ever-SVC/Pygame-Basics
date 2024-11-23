@@ -77,7 +77,7 @@ def main():
             obstaculo.actualizar(obstaculos, velocidad_juego)
 
             if jugador.dino_rect.colliderect(obstaculo.rect):
-                if abs(jugador.dino_rect.x - obstaculo.rect.x) <= 50 and abs(jugador.dino_rect.y - obstaculo.rect.y) <= 50:
+                if abs(jugador.dino_rect.x - obstaculo.rect.x) <= 80 and abs(jugador.dino_rect.y - obstaculo.rect.y) <= 50:
                     MUERTE_FX.play()
                     #pygame.draw.rect(ventana, (255, 0, 0), jugador.dino_rect, 2) # DIbuja un rectangulo rojo alrededor del dinosaurio
                     pygame.time.delay(2000)
