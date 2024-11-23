@@ -2,8 +2,8 @@ import pygame, os
 # Constantes de la aplicación
 pygame.init()
 # Configuración de la ventana
-ANCHO_PANTALLA = 1100
-ALTO_PANTALLA = 700
+ANCHO_VENTANA = 1100
+ALTO_VENTANA = 700
 
 # Sonidos
 MUERTE_FX = pygame.mixer.Sound("assets/audio/lose.mp3")

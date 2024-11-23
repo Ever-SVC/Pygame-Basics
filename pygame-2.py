@@ -18,7 +18,7 @@ reloj = pygame.time.Clock()
 # ----
 
 # Ventana del juego
-pantalla = pygame.display.set_mode(dimension)
+ventana = pygame.display.set_mode(dimension)
 
 while True:
     for event in pygame.event.get(): # Eventos del juego
@@ -49,14 +49,14 @@ while True:
 
 
     # Define el color de fondo de la ventana
-    pantalla.fill(BLANCO)
+    ventana.fill(BLANCO)
 
     # -------- CÓDIGO PARA DIBUJAR AQUI --------
 
     # Dibujar rectángulo
     ancho = 100
     alto = 100
-    pygame.draw.rect(pantalla, VERDE, (cord_x, cord_y, ancho, alto)) # (ventana, color, (X, Y, ancho, alto))
+    pygame.draw.rect(ventana, VERDE, (cord_x, cord_y, ancho, alto)) # (ventana, color, (X, Y, ancho, alto))
 
     # -------- FIN DEL CÓDIGO DE DIBUJO --------
 

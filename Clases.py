@@ -101,12 +101,12 @@ class Dinosaurio:
         self.dino_rect.y = self.Y_POS_AGACHADO
         self.frame_animacion += 1
 
-    def dinbujar(self, pantalla):
-        pantalla.blit(self.imagen, (self.dino_rect.x, self.dino_rect.y))
+    def dinbujar(self, ventana):
+        ventana.blit(self.imagen, (self.dino_rect.x, self.dino_rect.y))
 
 class Nube:
     def __init__(self):
-        self.x = ANCHO_PANTALLA + random.randint(800, 1000)
+        self.x = ANCHO_VENTANA + random.randint(800, 1000)
         self.y = random.randint(50, 100)
         self.imagen = NUBE
         self.ancho = self.imagen.get_width()
@@ -114,26 +114,26 @@ class Nube:
     def actualizar(self, velocidad_juego):
         self.x -= velocidad_juego
         if self.x < -self.ancho:
-            self.x = ANCHO_PANTALLA + random.randint(2500, 3000)
+            self.x = ANCHO_VENTANA + random.randint(2500, 3000)
             self.y = random.randint(50, 100)
 
-    def dibujar(self, pantalla):
-        pantalla.blit(self.imagen, (self.x, self.y))
+    def dibujar(self, ventana):
+        ventana.blit(self.imagen, (self.x, self.y))
 
 class Obstaculo:
     def __init__(self, imagen, tipo):
         self.imagen = imagen
         self.tipo = tipo
         self.rect = self.imagen[self.tipo].get_rect()
-        self.rect.x = ANCHO_PANTALLA
+        self.rect.x = ANCHO_VENTANA
 
     def actualizar(self, obstaculos, velocidad_juego):
         self.rect.x -= velocidad_juego
-        if self.rect.x < -self.rect.width: # Cuando el objeto sale de la pantalla lo elimina
+        if self.rect.x < -self.rect.width: # Cuando el objeto sale de la ventana lo elimina
             obstaculos.pop()
 
-    def dibujar(self, pantalla):
-        pantalla.blit(self.imagen[self.tipo], self.rect)
+    def dibujar(self, ventana):
+        ventana.blit(self.imagen[self.tipo], self.rect)
 
 class CactusChico(Obstaculo):
     def __init__(self, imagen):
@@ -154,8 +154,8 @@ class Pajaro(Obstaculo):
         self.rect.y = random.randint(200, 320)
         self.frame_animacion = 0
 
-    def dibujar(self, pantalla):
+    def dibujar(self, ventana):
         if self.frame_animacion >= 9:
             self.frame_animacion = 0
-        pantalla.blit(self.imagen[self.frame_animacion // 5], self.rect)
+        ventana.blit(self.imagen[self.frame_animacion // 5], self.rect)
         self.frame_animacion += 1

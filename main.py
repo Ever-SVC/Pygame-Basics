@@ -1,13 +1,13 @@
 import pygame, random, sys
 from Clases import *
-from recursos import * #ANCHO_PANTALLA, ALTO_PANTALLA, FONDO
+from recursos import * #ANCHO_VENTANA, ALTO_VENTANA, FONDO
 from colores import BLANCO, NEGRO
 
 # Inicializa Pygame
 pygame.init()
 
 # Configuración de la ventana
-pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
+ventana = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
 
 def main():
     global velocidad_juego, fondo_pos_x, fondo_pos_y, puntos, obstaculos
@@ -37,13 +37,13 @@ def main():
         texto = fuente_texto.render("Puntos: " + str(int(puntos)), True, NEGRO) # (Texto, suavizado, color)
         texto_rect = texto.get_rect()
         texto_rect.center = (1000, 50) # Parte superior izquierda
-        pantalla.blit(texto, texto_rect)
+        ventana.blit(texto, texto_rect)
 
     def fondo():
         global fondo_pos_x, fondo_pos_y
         ancho_imagen = FONDO.get_width()
-        pantalla.blit(FONDO, (fondo_pos_x, fondo_pos_y))
-        pantalla.blit(FONDO, (ancho_imagen + fondo_pos_x, fondo_pos_y))
+        ventana.blit(FONDO, (fondo_pos_x, fondo_pos_y))
+        ventana.blit(FONDO, (ancho_imagen + fondo_pos_x, fondo_pos_y))
 
         if fondo_pos_x <= -ancho_imagen:
             fondo_pos_x = 0
@@ -57,11 +57,11 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        pantalla.fill(BLANCO)
+        ventana.fill(BLANCO)
 
         tecla_presionada = pygame.key.get_pressed()
 
-        jugador.dinbujar(pantalla)
+        jugador.dinbujar(ventana)
         jugador.actualizar(tecla_presionada)
 
         if len(obstaculos) == 0:
@@ -73,20 +73,20 @@ def main():
                 obstaculos.append(Pajaro(PAJARO))
 
         for obstaculo in obstaculos:
-            obstaculo.dibujar(pantalla)
+            obstaculo.dibujar(ventana)
             obstaculo.actualizar(obstaculos, velocidad_juego)
 
             if jugador.dino_rect.colliderect(obstaculo.rect):
-                if abs(jugador.dino_rect.x - obstaculo.rect.x) <= 50:
+                if abs(jugador.dino_rect.x - obstaculo.rect.x) <= 50 and abs(jugador.dino_rect.y - obstaculo.rect.y) <= 50:
                     MUERTE_FX.play()
-                    #pygame.draw.rect(pantalla, (255, 0, 0), jugador.dino_rect, 2) # DIbuja un rectangulo rojo alrededor del dinosaurio
+                    #pygame.draw.rect(ventana, (255, 0, 0), jugador.dino_rect, 2) # DIbuja un rectangulo rojo alrededor del dinosaurio
                     pygame.time.delay(2000)
                     cantidad_muertes += 1
                     menu(cantidad_muertes)
         
         fondo()
 
-        nube.dibujar(pantalla)
+        nube.dibujar(ventana)
         nube.actualizar(velocidad_juego)
 
         puntaje()
@@ -101,7 +101,7 @@ def menu(cantidad_muertes):
     juego_corriendo = True
 
     while juego_corriendo:
-        pantalla.fill(BLANCO)
+        ventana.fill(BLANCO)
         fuente_texto = pygame.font.Font('freesansbold.ttf', 30)
 
         if cantidad_muertes == 0:
@@ -110,14 +110,14 @@ def menu(cantidad_muertes):
             texto = fuente_texto.render("[PRECIONA CUALQUIER TECLA PARA REINICIAR]", True, NEGRO)
             puntaje = fuente_texto.render("PUNTOS :" + str(int(puntos)), True, NEGRO)
             puntaje_rect = puntaje.get_rect()
-            puntaje_rect.center = (ANCHO_PANTALLA // 2, ALTO_PANTALLA // 2 + 50)
-            pantalla.blit(puntaje, puntaje_rect)
+            puntaje_rect.center = (ANCHO_VENTANA // 2, ALTO_VENTANA // 2 + 50)
+            ventana.blit(puntaje, puntaje_rect)
 
         texto_rect = texto.get_rect()
-        texto_rect.center = (ANCHO_PANTALLA // 2, ALTO_PANTALLA // 2)
-        pantalla.blit(texto, texto_rect)
+        texto_rect.center = (ANCHO_VENTANA // 2, ALTO_VENTANA // 2)
+        ventana.blit(texto, texto_rect)
 
-        pantalla.blit(DINO_CORRIENDO[0], (ANCHO_PANTALLA // 2 - 20, ALTO_PANTALLA // 2 - 140))        
+        ventana.blit(DINO_CORRIENDO[0], (ANCHO_VENTANA // 2 - 20, ALTO_VENTANA // 2 - 140))        
 
         pygame.display.update()
 
